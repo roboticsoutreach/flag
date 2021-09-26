@@ -22,3 +22,5 @@ Build a standard SRO-style robot with the following components:
 Make sure that the Arduino is flashed with the firmware on the `rfid` branch of the submodule.
 
 Put `main.py` on a USB stick, insert it in the robot and start.
+
+The collected student IDs will be written to the log file on the USB stick.
