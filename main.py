@@ -1,4 +1,5 @@
 from j5.backends import CommunicationError
+from j5.components.piezo import Pitch
 from sbot import *
 from typing import List, Optional
 
@@ -28,6 +29,7 @@ def main() -> None:
 
         start_time = time.time()
         if student_id is not None:
+            r.power_board.piezo.buzz(0.2, Pitch.C6)
             print(student_id)
             target_power, flag_motor.power = -target_power  # Swap direction
 
