@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "flag"
+version = "0.1.0"
+description = "Motorised flag that collects student IDs"
+authors = ["Your Name <you@example.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.6"
+sbot = "^0.8.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
