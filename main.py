@@ -1,5 +1,5 @@
 from j5.backends import CommunicationError
-from j5.components.piezo import Pitch
+from j5.components.piezo import Note
 from sbot import *
 from typing import List, Optional
 
@@ -14,6 +14,7 @@ def main() -> None:
     MAX_HEIGHT: float = target_power * 10  # Find this value experimentally
     
     start_time: float = time.time()
+    flag_motor.power = 0
     while True:
         # If it's too low and going down, or too high and going up
         if (flag_height <= target_power and flag_motor.power < 0 or
@@ -29,17 +30,20 @@ def main() -> None:
 
         start_time = time.time()
         if student_id is not None:
-            r.power_board.piezo.buzz(0.2, Pitch.C6)
+            r.power_board.piezo.buzz(0.2, Note.C6)
             print(student_id)
-            target_power, flag_motor.power = -target_power  # Swap direction
+            flag_motor.power = -target_power  # Swap direction
+            target_power = -target_power
 
 
 def read_rfid() -> Optional[str]:
     """Returns the student ID of the card scanned, if present."""
     try:
-        response: List[str] = r.arduino._command("N")
+        response: List[str] = r.arduino._backend._command("N")
         if len(response) != 1:
             print("Arduino sent too many responses")
+            return None
+        elif len(response[0]) < 8:
             return None
         else:
             return response[0]
