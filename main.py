@@ -14,7 +14,6 @@ class FlagBot:
     def __init__(self) -> None:
         self._r = Robot(wait_start=False)
 
-        self.target_power = -0.2
         self.flag_height = 0
 
         self._last_seen_card = time.time()
@@ -70,8 +69,10 @@ class FlagBot:
             elif len(response[0]) < 8:
                 return None
             else:
-                
-                #TODO: Write to file here.
+                print(response[0])
+                with open(f"ids/{response[0]}", 'a') as id_file:
+                    id_file.write(response[0] + '\n')
+
                 self._last_seen_card = time.time()
                 self.r.power_board.piezo.buzz(0.1, choice([n for n in Note]))
                 return response[0]
